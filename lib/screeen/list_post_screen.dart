@@ -1,6 +1,8 @@
 import 'package:app1/database/database_helpert.dart';
+import 'package:app1/provider/flags_provider.dart';
 import 'package:app1/widgets/item_post_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/post_model.dart';
 
@@ -21,8 +23,10 @@ class _ListPostScreenState extends State<ListPostScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var futPost = helper!.GETALLPOST();
+   
     return FutureBuilder(
-        future: helper!.GETALLPOST(),
+        future: futPost,
         builder: (context, AsyncSnapshot<List<PostModel>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(

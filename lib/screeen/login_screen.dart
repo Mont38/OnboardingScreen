@@ -45,8 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
   );
   //Aqui debajo se importó una "libreria" de dev.net que agrega botonos para login de diferentes medias, como google, facebook, etc.
 
-  final btnGoogle = SocialLoginButton(
-      buttonType: SocialLoginButtonType.google, onPressed: () {});
   final btnFace = SocialLoginButton(
       buttonType: SocialLoginButtonType.facebook, onPressed: () {});
   final btnGit = SocialLoginButton(
@@ -57,12 +55,22 @@ class _LoginScreenState extends State<LoginScreen> {
     height: 200,
   );
   final imgLogoDesktop = Image.asset(
-    'logoDes.jpg',
+    'assets/logoDes.jpg',
     height: 300,
+  );
+  final imgLogoTablet = Image.asset(
+    'assets/logoDes.jpg',
+    height: 200,
   );
 
   @override
   Widget build(BuildContext context) {
+    final btnGoogle = SocialLoginButton(
+        buttonType: SocialLoginButtonType.google,
+        onPressed: () {
+          Navigator.pushNamed(context, '/onboarding');
+        });
+
     final txtRegister = Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: TextButton(
@@ -108,70 +116,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   Column(
                     children: [
                       Responsive(
-                          mobile: MobileLoginScreen(
+                        mobile: MobileLoginScreen(
+                          txtEmail: txtEmail,
+                          spaceHorizontal: spaceHorizontal,
+                          txtPass: txtPass,
+                          btnEmail: btnEmail,
+                          btnGoogle: btnGoogle,
+                          btnFace: btnFace,
+                          btnGit: btnGit,
+                          txtRegister: txtRegister,
+                          imgLogo: imgLogo,
+                        ),
+                        desktop: Desktop(
+                            imgLogoDesktop: imgLogoDesktop,
                             txtEmail: txtEmail,
                             spaceHorizontal: spaceHorizontal,
                             txtPass: txtPass,
                             btnEmail: btnEmail,
                             btnGoogle: btnGoogle,
                             btnFace: btnFace,
-                            btnGit: btnGit,
-                            txtRegister: txtRegister,
-                            imgLogo: imgLogo,
-                          ),
-                          desktop: Container(
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 230),
-                                child: Row(
-                                  verticalDirection: VerticalDirection.down,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(300),
-                                      child: imgLogoDesktop,
-                                    ),
-                                    Expanded(
-                                        child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Column(
-                                        children: [
-                                          txtEmail,
-                                          spaceHorizontal,
-                                          spaceHorizontal,
-                                          txtPass,
-                                          spaceHorizontal,
-                                          spaceHorizontal,
-                                          spaceHorizontal,
-                                          btnEmail,
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  spaceHorizontal,
-                                                  spaceHorizontal,
-                                                  spaceHorizontal,
-                                                  spaceHorizontal,
-                                                  btnGoogle,
-                                                  spaceHorizontal,
-                                                  btnFace,
-                                                  spaceHorizontal,
-                                                  btnGit,
-                                                  spaceHorizontal,
-                                                ]),
-                                          ),
-                                        ],
-                                      ),
-                                    ))
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )),
+                            btnGit: btnGit),
+                        tablet: tablet(
+                            imgLogoTablet: imgLogoTablet,
+                            txtEmail: txtEmail,
+                            spaceHorizontal: spaceHorizontal,
+                            txtPass: txtPass,
+                            btnEmail: btnEmail,
+                            btnGoogle: btnGoogle,
+                            btnFace: btnFace,
+                            btnGit: btnGit),
+                      ),
                     ],
                   ),
                 ],
@@ -180,6 +154,159 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           isLoading ? const LoadingModalWidget() : Container()
         ],
+      ),
+    );
+  }
+}
+
+class Desktop extends StatelessWidget {
+  const Desktop({
+    super.key,
+    required this.imgLogoDesktop,
+    required this.txtEmail,
+    required this.spaceHorizontal,
+    required this.txtPass,
+    required this.btnEmail,
+    required this.btnGoogle,
+    required this.btnFace,
+    required this.btnGit,
+  });
+
+  final Image imgLogoDesktop;
+  final TextFormField txtEmail;
+  final SizedBox spaceHorizontal;
+  final TextFormField txtPass;
+  final SocialLoginButton btnEmail;
+  final SocialLoginButton btnGoogle;
+  final SocialLoginButton btnFace;
+  final SocialLoginButton btnGit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 230),
+          child: Row(
+            verticalDirection: VerticalDirection.down,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(300),
+                child: imgLogoDesktop,
+              ),
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    txtEmail,
+                    spaceHorizontal,
+                    spaceHorizontal,
+                    txtPass,
+                    spaceHorizontal,
+                    spaceHorizontal,
+                    spaceHorizontal,
+                    btnEmail,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            spaceHorizontal,
+                            spaceHorizontal,
+                            spaceHorizontal,
+                            spaceHorizontal,
+                            btnGoogle,
+                            spaceHorizontal,
+                            btnFace,
+                            spaceHorizontal,
+                            btnGit,
+                            spaceHorizontal,
+                          ]),
+                    ),
+                  ],
+                ),
+              ))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class tablet extends StatelessWidget {
+  const tablet({
+    super.key,
+    required this.imgLogoTablet,
+    required this.txtEmail,
+    required this.spaceHorizontal,
+    required this.txtPass,
+    required this.btnEmail,
+    required this.btnGoogle,
+    required this.btnFace,
+    required this.btnGit,
+  });
+
+  final Image imgLogoTablet;
+  final TextFormField txtEmail;
+  final SizedBox spaceHorizontal;
+  final TextFormField txtPass;
+  final SocialLoginButton btnEmail;
+  final SocialLoginButton btnGoogle;
+  final SocialLoginButton btnFace;
+  final SocialLoginButton btnGit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 230),
+          child: Row(
+            verticalDirection: VerticalDirection.down,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(300),
+                child: imgLogoTablet,
+              ),
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    txtEmail,
+                    spaceHorizontal,
+                    spaceHorizontal,
+                    txtPass,
+                    spaceHorizontal,
+                    spaceHorizontal,
+                    spaceHorizontal,
+                    btnEmail,
+                    SizedBox(
+                      width: 900,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            spaceHorizontal,
+                            spaceHorizontal,
+                            spaceHorizontal,
+                            spaceHorizontal,
+                            btnGoogle,
+                            spaceHorizontal,
+                            btnFace,
+                            spaceHorizontal,
+                            btnGit,
+                            spaceHorizontal,
+                          ]),
+                    ),
+                  ],
+                ),
+              ))
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -211,29 +338,31 @@ class MobileLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            child: imgLogo,
-            margin: EdgeInsets.only(bottom: 15),
-            height: 200,
-          ),
-          txtEmail,
-          spaceHorizontal,
-          txtPass,
-          spaceHorizontal,
-          btnEmail,
-          spaceHorizontal,
-          btnGoogle,
-          spaceHorizontal,
-          btnFace,
-          spaceHorizontal,
-          btnGit,
-          spaceHorizontal,
-          txtRegister,
-        ],
+    return Container(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              child: imgLogo,
+              margin: EdgeInsets.only(bottom: 15),
+              height: 200,
+            ),
+            txtEmail,
+            spaceHorizontal,
+            txtPass,
+            spaceHorizontal,
+            btnEmail,
+            spaceHorizontal,
+            btnGoogle,
+            spaceHorizontal,
+            btnFace,
+            spaceHorizontal,
+            btnGit,
+            spaceHorizontal,
+            txtRegister,
+          ],
+        ),
       ),
     );
   }

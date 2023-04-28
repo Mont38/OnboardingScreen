@@ -107,57 +107,59 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     image: AssetImage('assets/backRegister.jpg'),
                     fit: BoxFit.cover,
                     opacity: 0.8)),
-            child: Form(
-              key: _formkey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(129.0),
-                          child: _image != null
-                              ? Image.file(_image!,
-                                  width: 250, height: 250, fit: BoxFit.cover)
-                              : Image.network(
-                                  'https://i.pinimg.com/564x/c8/29/90/c82990d8b80c30481cd32572732b5809.jpg',
-                                  height: 250,
-                                ),
-                        ),
-                        SizedBox(height: 10),
-                        CustomBotton(
-                          title: 'Pick image from Gallery',
-                          icon: Icons.image_outlined,
-                          onClick: () => getImage(ImageSource.gallery),
-                        ),
-                        CustomBotton(
-                            title: 'Pick image from camera',
-                            icon: Icons.camera,
-                            onClick: () => getImage(ImageSource.camera)),
-                        SizedBox(height: 10),
-                        txtEmail,
-                        SpaceHorizontal,
-                        txtPass,
-                        SpaceHorizontal,
-                        txtName,
-                        SpaceHorizontal,
-                        SpaceHorizontal,
-                        RoundedLoadingButton(
-                          color: Color.fromARGB(255, 174, 209, 174),
-                          child: const Text(
-                            'Registrarme',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 54, 74, 54)),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formkey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(129.0),
+                            child: _image != null
+                                ? Image.file(_image!,
+                                    width: 250, height: 250, fit: BoxFit.cover)
+                                : Image.network(
+                                    'https://i.pinimg.com/564x/c8/29/90/c82990d8b80c30481cd32572732b5809.jpg',
+                                    height: 250,
+                                  ),
                           ),
-                          controller: btnok,
-                          onPressed: _doSomething,
-                        )
-                      ],
-                    ),
-                  ],
+                          SizedBox(height: 10),
+                          CustomBotton(
+                            title: 'Pick image from Gallery',
+                            icon: Icons.image_outlined,
+                            onClick: () => getImage(ImageSource.gallery),
+                          ),
+                          CustomBotton(
+                              title: 'Pick image from camera',
+                              icon: Icons.camera,
+                              onClick: () => getImage(ImageSource.camera)),
+                          SizedBox(height: 10),
+                          txtEmail,
+                          SpaceHorizontal,
+                          txtPass,
+                          SpaceHorizontal,
+                          txtName,
+                          SpaceHorizontal,
+                          SpaceHorizontal,
+                          RoundedLoadingButton(
+                            color: Color.fromARGB(255, 174, 209, 174),
+                            child: const Text(
+                              'Registrarme',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 54, 74, 54)),
+                            ),
+                            controller: btnok,
+                            onPressed: _doSomething,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )));

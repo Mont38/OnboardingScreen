@@ -13,12 +13,14 @@ class ItemPostWidget extends StatelessWidget {
       size: 35,
     );
     final cardDesc = Container(
+      color: Colors.pink,
       height: 100,
+      child: Text('${postModel!.dscPost}'),
     );
     final rowfooter = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Fecha: '),
+        Text('Fecha: ${postModel!.datePost}'),
         Icon(Icons.thumb_up),
       ],
     );
@@ -51,7 +53,7 @@ class ItemPostWidget extends StatelessWidget {
       child: Container(
         height: 200,
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 174, 194, 165),
+            color: Color.fromARGB(255, 246, 246, 246),
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(

@@ -4,6 +4,7 @@ import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/flags_provider.dart';
 import '../provider/theme_provider.dart';
 import '../widgets/modal_add_posrt.dart';
 
@@ -20,11 +21,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeProvider theme = Provider.of<ThemeProvider>(context);
+    FlagsProvider flags = Provider.of<FlagsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Bueno para las cuentas'),
       ),
-      body: const ListPostScreen(),
+      body: flags.getupdatePosts() == true
+          ? const ListPostScreen()
+          : ListPostScreen(),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             _opencustoeDialog();
@@ -71,8 +75,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         transitionBuilder: (context, animation, secondaryAnimation, child) {
           return Transform.scale(
             scale: animation.value,
-            child:
-                Opacity(opacity: animation.value, child: const ModalAddPost()),
+            child: Opacity(opacity: animation.value, child: ModalAddPost()),
           );
         },
         transitionDuration: Duration(microseconds: 200),
